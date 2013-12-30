@@ -1,8 +1,6 @@
 #-*- coding: utf-8-*-
 __author__ = 'Aaron'
-import os
 import sys
-from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from playtext import Ui_Form
 
