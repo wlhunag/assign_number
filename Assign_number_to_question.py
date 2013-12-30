@@ -11,8 +11,8 @@ class MW(QWidget,Ui_Form):
     def __init__(self,parent = None):
         super(MW,self).__init__(parent)
         self.setupUi(self)
-        self.create_connection()
         self.var = ['ABCD','<A><B><C><D>','[A][B][C][D]','{A}{B}{C}{D}']
+        self.create_connection()
         self.comboBox.addItems(self.var)
         self.show()
 
@@ -21,29 +21,31 @@ class MW(QWidget,Ui_Form):
         self.comboBox.currentIndexChanged.connect(lambda: self.manipulation())
 
     def whichstyle(self):
-        style = unicode(self.comboBox.currentIndex())
+        style = int(unicode(self.comboBox.currentIndex()))
+        # print(style)
         if style == 0:
             return ['','A','B','C','D']
-        
+
         elif style == 1:
             return ['','<A>','<B>','<C>','<D>']
-        
+
         elif style ==2:
             return ['','[A]','[B]','[C]','[D]']
-        
-        elif style ==2:
+
+        elif style ==3:
             return ['','{A}','{B}','{C}','{D}']
-        
+
     def manipulation(self):
-        poll = self.whichstyle()
+        self.poll = self.whichstyle()
 
         self.ori = unicode(self.plainTextEdit.toPlainText()).encode('utf-8').lstrip("\n").rstrip('\n')
-        poll = ['','A','B','C','D']
         print self.ori
+
         result = ''
-        for a,b in zip(poll,['{0}'.format(answer) for answer in self.ori.split('\n')]):
+        for a,b in zip(self.poll,['{0}'.format(answer) for answer in self.ori.split('\n')]):
             result += a + '.' + b + "\n"
         print result
+
         self.textBrowser.setText(result.decode('utf-8'))
 
 
