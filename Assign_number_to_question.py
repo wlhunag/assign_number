@@ -51,6 +51,10 @@ class MW(QWidget,Ui_Form):
 
         self.textBrowser.setText(result.decode('utf-8'))
 
+        #自動複製到剪貼簿
+        clipboard = QApplication.clipboard()
+        clipboard.setText(result.decode('utf-8'))
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
