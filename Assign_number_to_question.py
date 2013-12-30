@@ -20,7 +20,22 @@ class MW(QWidget,Ui_Form):
         self.plainTextEdit.textChanged.connect(self.manipulation)
         self.comboBox.currentIndexChanged.connect(lambda: self.manipulation())
 
+    def whichstyle(self):
+        style = unicode(self.comboBox.currentIndex())
+        if style == 0:
+            return ['','A','B','C','D']
+        
+        elif style == 1:
+            return ['','<A>','<B>','<C>','<D>']
+        
+        elif style ==2:
+            return ['','[A]','[B]','[C]','[D]']
+        
+        elif style ==2:
+            return ['','{A}','{B}','{C}','{D}']
+        
     def manipulation(self):
+        poll = self.whichstyle()
 
         self.ori = unicode(self.plainTextEdit.toPlainText()).encode('utf-8').lstrip("\n").rstrip('\n')
         poll = ['','A','B','C','D']
