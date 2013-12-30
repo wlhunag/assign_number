@@ -11,7 +11,7 @@ class MW(QWidget,Ui_Form):
     def __init__(self,parent = None):
         super(MW,self).__init__(parent)
         self.setupUi(self)
-        self.var = [u'無邊框','<>','[]','{}']
+        self.var = [u'無邊框','<>','[]','{}',u"無選項"]
         self.create_connection()
         self.comboBox.addItems(self.var)
         self.show()
@@ -19,6 +19,8 @@ class MW(QWidget,Ui_Form):
     def create_connection(self):
         self.plainTextEdit.textChanged.connect(self.manipulation)
         self.comboBox.currentIndexChanged.connect(lambda: self.manipulation())
+        self.checkBox.toggled.connect(lambda: self.manipulation())
+        self.checkBox_2.toggled.connect(lambda: self.manipulation())
 
     def whichstyle(self):
         style = int(unicode(self.comboBox.currentIndex()))
@@ -29,11 +31,14 @@ class MW(QWidget,Ui_Form):
         elif style == 1:
             return ['<A>','<B>','<C>','<D>']
 
-        elif style ==2:
+        elif style == 2:
             return ['[A]','[B]','[C]','[D]']
 
-        elif style ==3:
+        elif style == 3:
             return ['{A}','{B}','{C}','{D}']
+
+        elif style == 4:
+            return ['','','','']
 
     def manipulation(self):
         self.poll = self.whichstyle()
@@ -41,15 +46,28 @@ class MW(QWidget,Ui_Form):
         self.ori = unicode(self.plainTextEdit.toPlainText()).encode('utf-8').lstrip("\n").rstrip('\n')
         print self.ori
 
+        if self.checkBox.isChecked():
+            tab = "\t"
+        else:
+            tab = ""
+
+        if self.checkBox_2.isChecked():
+            dot = "."
+        else:
+            dot = ""
+
         modifytext = self.ori.split('\n')
         #題目先獨立出來
         result = modifytext[0] + '\n'
         #再拼湊答案選項
         for a,b in zip(self.poll,['{0}'.format(answer) for answer in self.ori.split('\n')[1:]]):
-            result += a + '.' + b + "\n"
+            result += tab + a + dot + b + "\n"
         print result
 
         self.textBrowser.setText(result.decode('utf-8'))
+
+        self.plainTextEdit.setFocus()
+        self.plainTextEdit.selectAll()
 
         #自動複製到剪貼簿
         clipboard = QApplication.clipboard()
