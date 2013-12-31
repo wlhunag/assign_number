@@ -16,7 +16,7 @@ class MW(QWidget,Ui_Form):
         self.copyaction = QAction('copy',self)
         self.copyaction.setShortcut(QKeySequence('Ctrl+C,D'))
 
-        #TODO:        #不知道如何不讓視窗內容大小固定
+        #TODO:  讓視窗內容大小隨視窗調整
         self.var = [u'無邊框','< >','[ ]','{ }',u"無選項"]
         self.create_connection()
         self.comboBox.addItems(self.var)
