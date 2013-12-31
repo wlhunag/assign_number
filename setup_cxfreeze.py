@@ -9,7 +9,7 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
 #因為已經包含下列檔案了，所以就comment掉了
-includefiles = [ 'playtext.pyc',"exam.ico"]
+includefiles = [ 'playtext.pyc',"exam.ico",'imageformats/qico4.dll']
 #記得要加上C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats 這個資料夾
 includes = ['sip', 'PyQt4.QtCore','PyQt4.QtGui','atexit']
 
