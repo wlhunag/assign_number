@@ -10,7 +10,8 @@ class MW(QWidget,Ui_Form):
         super(MW,self).__init__(parent)
         self.setupUi(self)
         self.clipboard = QApplication.clipboard()
-        #嘗試全域快鍵
+        #嘗試全域快鍵，似乎在視窗失去焦點時就不支援了
+        #網路上說要用 QxtGlobalShortcut 才有全局快捷鍵
         self.copyaction = QAction('copy',self)
         self.copyaction.setShortcut(QKeySequence('Ctrl+C,D'))
 
