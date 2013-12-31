@@ -85,6 +85,8 @@ class Ui_Form(object):
         QtCore.QObject.connect(self.plainTextEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), self.textBrowser.reload)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+        self.setWindowIcon(QtGui.QIcon("exam.ico"))
+
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "考古題加編號", None))
         self.label.setText(_translate("Form", "花色：", None))
