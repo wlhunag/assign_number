@@ -9,6 +9,11 @@ class MW(QWidget,Ui_Form):
     def __init__(self,parent = None):
         super(MW,self).__init__(parent)
         self.setupUi(self)
+        self.clipboard = QApplication.clipboard()
+        #嘗試全域快鍵
+        self.copyaction = QAction('copy',self)
+        self.copyaction.setShortcut(QKeySequence('Ctrl+C,D'))
+
         #TODO:        #不知道如何不讓視窗內容大小固定
         self.var = [u'無邊框','<>','[]','{}',u"無選項"]
         self.create_connection()
@@ -20,6 +25,12 @@ class MW(QWidget,Ui_Form):
         self.comboBox.currentIndexChanged.connect(lambda: self.manipulation())
         self.checkBox.toggled.connect(lambda: self.manipulation())
         self.checkBox_2.toggled.connect(lambda: self.manipulation())
+        #嘗試全域快鍵
+        self.copyaction.triggered.connect(lambda: self.glohot())
+
+    def glohot(self):
+        print "Global hotkey success!!"
+        print unicode(self.clipboard.text())
 
     def whichstyle(self):
         style = int(unicode(self.comboBox.currentIndex()))
@@ -59,9 +70,13 @@ class MW(QWidget,Ui_Form):
         #題目先獨立出來
         result = modifytext[0] + '\n'
         #再拼湊答案選項
-        for a,b in zip(self.poll,['{0}'.format(answer) for answer in self.ori.split('\n')[1:]]):
-            result += tab + a + dot + b + "\n"
-        print result
+        try:
+            for a,b in zip(self.poll,['{0}'.format(answer) for answer in self.ori.split('\n')[1:]]):
+                result += tab + a + dot + b + "\n"
+            print result
+
+        except:
+            print "內容不是考古題吧!"
 
         self.textBrowser.setText(result.decode('utf-8'))
 
