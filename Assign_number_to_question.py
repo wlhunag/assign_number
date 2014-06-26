@@ -42,6 +42,7 @@ class MW(QWidget,Ui_Form):
         if style == 0:
             return ['A','B','C','D']
 
+#print
         elif style == 1:
             return ['<A>','<B>','<C>','<D>']
 
