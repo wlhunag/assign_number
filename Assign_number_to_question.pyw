@@ -1,4 +1,9 @@
 #-*- coding: utf-8-*-
+import time
+
+from PyQt4.QtCore import Qt
+
+
 __author__ = 'Aaron'
 import sys
 
@@ -15,6 +20,7 @@ class MW(QWidget,Ui_Form):
         #網路上說要用 QxtGlobalShortcut 才有全局快捷鍵
         self.copyaction = QAction('copy',self)
         self.copyaction.setShortcut(QKeySequence('Ctrl+C,D'))
+
 
         #TODO:  讓視窗內容大小隨視窗調整
         self.var = [u'無邊框','< >','[ ]','{ }',u"無選項"]
@@ -95,5 +101,30 @@ class MW(QWidget,Ui_Form):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
+    #測試splashScreen
+    # img = QPixmap(r"G:\logo.png".decode('utf-8'))
+    # img2 = QPixmap(r"C:\Users\Aaron\Pictures\green.bmp".decode('utf-8'))
+
+    img = QPixmap(r"resources\logo.png".decode('utf-8'))
+    splash = QSplashScreen(img)
+    # splash.setMask(QPixmap(img2).mask())
+    app.processEvents()
+
+    #設定文字大小
+    font = QFont(splash.font())
+    font.setPointSize(font.pointSize()+15)
+    splash.setFont(font)
+
+    splash.show()
+    for i in range(6):
+        splash.showMessage(u"連線伺服器.{} ".format('.'*i), Qt.AlignBottom | Qt.AlignLeft,Qt.black)
+        time.sleep(0.4)
+    splash.showMessage(u"資料讀取中，請稍後......",Qt.AlignBottom, Qt.black)
+    app.processEvents()
+    time.sleep(1.5)
     window = MW()
+    splash.finish(window)
+    splash.hide()
+
     sys.exit(app.exec_())
